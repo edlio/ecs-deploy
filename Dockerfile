@@ -6,7 +6,7 @@ RUN apt-get update -y \
         curl \
         python-setuptools \
         jq \
-    && easy_install pip \
+    && easy_install --upgrade pip==20.3.3 \
     && pip install awscli
 
 COPY ecs-deploy /usr/local/bin/ecs-deploy
