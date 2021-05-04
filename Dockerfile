@@ -16,9 +16,6 @@ RUN wget https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz \
     && sudo make install \
     && python --version
 
-RUN apt-get update -y \
-    && apt-get upgrade -y
-
 RUN curl "https://bootstrap.pypa.io/pip/2.7/get-pip.py" -o "get-pip.py"
 RUN python get-pip.py
 
