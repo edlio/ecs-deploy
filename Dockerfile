@@ -1,19 +1,35 @@
 FROM silintl/ubuntu:14.04
 MAINTAINER Phillip Shipley <phillip_shipley@sil.org>
 
-RUN echo "$HOME"
-RUN curl "https://files.pythonhosted.org/packages/ca/1e/d91d7aae44d00cd5001957a1473e4e4b7d1d0f072d1af7c34b5899c9ccdf/pip-20.3.3.tar.gz#sha256=79c1ac8a9dccbec8752761cb5a2df833224263ca661477a2a9ed03ddf4e0e3ba" > pip-20.3.3.tar.gz
-RUN ls -l
+RUN apt-get update -y \
+    && apt-get upgrade -y
+
+RUN apt-get install -y wget python-setuptools build-essential zlib1g-dev
+
+RUN apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
+
+RUN wget https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz \
+    && tar xfz ./Python-2.7.9.tgz \
+    && cd Python-2.7.9 \
+    && ./configure  \
+    && make \
+    && sudo make install \
+    && python --version
 
 RUN apt-get update -y \
-    && apt-get install -y \
+    && apt-get upgrade -y
+
+RUN curl "https://bootstrap.pypa.io/pip/2.7/get-pip.py" -o "get-pip.py"
+RUN python get-pip.py
+
+RUN apt-get install -y \
         curl \
         python-setuptools \
         jq \
-        python-pip \
-    && pip install --force-reinstall pip-20.3.3.tar.gz \
+    && python --version \
     && pip --version \
-    && pip install awscli==1.18.39
+    && pip install --upgrade pip==20.3.3 \
+    && pip install awscli==1.18.39; exit 0
 
 COPY ecs-deploy /usr/local/bin/ecs-deploy
 
