@@ -8,9 +8,9 @@ RUN apt-get install -y wget python-setuptools build-essential zlib1g-dev
 
 RUN apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
 
-RUN wget https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz \
-    && tar xfz ./Python-2.7.9.tgz \
-    && cd Python-2.7.9 \
+RUN wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz \
+    && tar xfz ./Python-2.7.18.tgz \
+    && cd Python-2.7.18 \
     && ./configure  \
     && make \
     && sudo make install \
