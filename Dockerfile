@@ -26,10 +26,8 @@ RUN apt-get install -y \
         curl \
         python-setuptools \
         jq \
-    && python --version \
-    && pip --version \
     && pip install --upgrade pip==20.3.3 \
-    && pip install awscli==1.18.39; exit 0
+    && pip install awscli==1.18.39
 
 COPY ecs-deploy /usr/local/bin/ecs-deploy
 
