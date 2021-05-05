@@ -1,45 +1,4 @@
-FROM silintl/ubuntu:14.04 as build
-
-RUN apt-get update -y \
-    && apt-get install -y wget \ 
-    libreadline-gplv2-dev \ 
-    libncursesw5-dev\ 
-    libssl-dev \ 
-    libsqlite3-dev \
-    tk-dev \ 
-    libgdbm-dev \ 
-    libc6-dev \ 
-    libbz2-dev 
-
-# Install python 
-RUN wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz \
-    && tar xfz ./Python-2.7.18.tgz \
-    && cd Python-2.7.18 \
-    && ./configure  \
-    && make 
-
-
-FROM silintl/ubuntu:14.04
-
-COPY --from=build /Python-2.7.18 ./Python-2.7.18
-RUN apt-get update -y \
-    && apt-get -y install build-essential
-
-RUN ls -l
-RUN cd Python-2.7.18 \
-    && sudo make install \
-    && python --version \
-    && cd .. \
-    && rm -rf Python-2.7.18
-
-# Install pip
-RUN curl "https://bootstrap.pypa.io/pip/2.7/get-pip.py" -o "get-pip.py" \
-    && python get-pip.py \
-    && pip install --upgrade pip==20.3.3 
-
-RUN apt-get autoremove \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+FROM devlio/customubuntu:UBUNTU_14-PYTHON_2_7_18
 
 RUN pip install awscli==1.18.39
 
