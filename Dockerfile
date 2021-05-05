@@ -1,4 +1,4 @@
-FROM silintl/ubuntu:14.04
+FROM silintl/ubuntu:14.04 as build
 
 RUN apt-get update -y \
     && apt-get install -y wget \ 
@@ -16,7 +16,17 @@ RUN wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz \
     && tar xfz ./Python-2.7.18.tgz \
     && cd Python-2.7.18 \
     && ./configure  \
-    && make \
+    && make 
+
+
+FROM silintl/ubuntu:14.04
+
+COPY --from=build /Python-2.7.18 ./Python-2.7.18
+RUN apt-get update -y \
+    && apt-get -y install build-essential
+
+RUN ls -l
+RUN cd Python-2.7.18 \
     && sudo make install \
     && python --version \
     && cd .. \
