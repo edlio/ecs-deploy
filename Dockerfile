@@ -1,13 +1,6 @@
-FROM silintl/ubuntu:14.04
-MAINTAINER Phillip Shipley <phillip_shipley@sil.org>
+FROM devlio/customubuntu:UBUNTU_14-PYTHON_2_7_18
 
-RUN apt-get update -y \
-    && apt-get install -y \
-        curl \
-        python-setuptools \
-        jq \
-    && easy_install --upgrade pip==20.3.3 \
-    && pip install awscli==1.18.39
+RUN pip install awscli==1.18.39
 
 COPY ecs-deploy /usr/local/bin/ecs-deploy
 
