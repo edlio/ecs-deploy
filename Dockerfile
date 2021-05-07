@@ -1,4 +1,4 @@
-FROM devlio/customubuntu:UBUNTU_14-PYTHON_2_7_18
+FROM devlio/ecs-ubuntu:ECS_DEPLOY
 
 RUN pip install awscli==1.18.39
 
